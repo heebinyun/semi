@@ -159,7 +159,7 @@
 						<div class="col-md-9">
 							<input id="product-auction-price" type="number"
 								name="immediateBid" class="number form-control mr-1"
-								placeholder="숫자만 입력해주세요" step="1000" disabled>원
+								placeholder="숫자만 입력해주세요" step="1000" maxlength="8" disabled>원
 							&nbsp;&nbsp;&nbsp;&nbsp; <span class="font-italic"></span>
 						</div>
 					</div>
@@ -170,7 +170,7 @@
 						<div class="col-md-9">
 							<input id="product-start-price" type="number" name="reservePrice"
 								placeholder="숫자만 입력해주세요" class="number form-control mr-1"
-								step="1000" disabled required>원 &nbsp;&nbsp;&nbsp;&nbsp; <span
+								step="1000" maxlength="8" disabled required>원 &nbsp;&nbsp;&nbsp;&nbsp; <span
 								class="font-italic">* 천단위(1000) 입력만 가능합니다</span>
 						</div>
 					</div>
@@ -189,7 +189,7 @@
 						<div class="col-md-9">
 							<input id="product-basic-price" type="number" name="basicPrice"
 								placeholder="숫자만 입력해주세요" class="number form-control mr-1"
-								step="1000" disabled required>원 &nbsp;&nbsp;&nbsp;&nbsp; <span
+								step="1000" maxlength="8" disabled required>원 &nbsp;&nbsp;&nbsp;&nbsp; <span
 								class="font-italic">* 천단위(1000) 입력만 가능합니다 (천단위 미만 입력시 올림처리)</span>
 						</div>
 					</div>
@@ -374,6 +374,11 @@
                 if(!formCheck){
                     alert("판매 방법을 선택해주세요");
                     return false;
+                }
+                
+                var priceLength =  $('#product-basic-price, #product-start-price').val();
+                if(priceLength.length > priceLength.maxLength){
+                	return false;
                 }
                 
             }

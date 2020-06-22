@@ -297,7 +297,7 @@
                                             <td><input value="<%= product.getAuctionReservePrice() %>" class="text-danger"
                                                     id="currentPrice" style="text-align: right;" readonly></input>
                                                     <label>원 보다 큰 금액만 입찰할 수 있습니다.</label> <br> 
-                                                <input type="number" id="biddingPrice" style="text-align: right;" step="1000">원
+                                                <input type="number" id="biddingPrice" style="text-align: right;" step="1000" maxlength="8">원
                                                 (천단위 미만 입력시 올림처리)
                                                 <p id="checkPrice"></p>
                                             </td>
@@ -363,9 +363,19 @@
                if( parseInt($("#biddingPrice").val()) <= parseInt($("#currentPrice").val())){
                    $("#checkPrice").text("현재 입찰금액보다 큰 금액을 입력해주세요.").css("color","red");
                    return false;
-               }else{
+               }else if($("#biddingPrice").val().length<$("#biddingPrice").val().maxLength){
+	            	$("#checkPrice").text("입력 가능한 금액 범위를 벗어났습니다.").css("color","red");
+	        		return false;
+           		}else{
                    $("#checkPrice").text("참여 가능한 금액입니다.").css("color","green");
                    return true;
+               }
+               
+               if(<%= product.getAuctionImmediateBid() %>!=0){
+            	   if($("#biddingPrice").val()><%= product.getAuctionImmediateBid() %>){
+   	            	$("#checkPrice").text("즉시구매를 이용해주세요.").css("color","red");
+   	        		return false;
+              		}
                }
            });
            

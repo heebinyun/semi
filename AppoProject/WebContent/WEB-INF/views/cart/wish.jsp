@@ -164,10 +164,13 @@
         <script>
             $(document).ready(function(){
                 $("#biddingPrice").on("input",function(){
-                    if( parseInt($("#biddingPrice").val()) <= parseInt($("#currentPrice").val())){
+                	if( parseInt($("#biddingPrice").val()) <= parseInt($("#currentPrice").val())){
                         $("#checkPrice").text("현재 입찰금액보다 큰 금액을 입력해주세요.").css("color","red");
                         return false;
-                    }else{
+                    }else if($("#biddingPrice").val().length<$("#biddingPrice").val().maxLength){
+     	            	$("#checkPrice").text("입력 가능한 금액 범위를 벗어났습니다.").css("color","red");
+     	        		return false;
+                	}else{
                         $("#checkPrice").text("참여 가능한 금액입니다.").css("color","green");
                         return true;
                     }
@@ -235,6 +238,12 @@
                 $("#goAuction").click(function(){
                 	var biddingPrice = $("#biddingPrice").val();
                 	
+                	if(!$("#iP").equals("-")){
+                		if($("#iP")<=biddingPrice){
+                    		alert("즉시 입찰을 이용하세요.");
+                    		return false;
+                    	}
+                	}
                 	if(biddingPrice==""||biddingPrice.length == 0){
                 		alert("금액을 입력하세요.");
                 		$("#biddingPrice").focus();
